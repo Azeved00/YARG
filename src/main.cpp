@@ -1,22 +1,9 @@
-#include "raylib.h"
+#include "./shared.cpp"
 #include "./graphics.cpp"
-
-typedef enum State {
-    GamePlay,
-    Lost,
-    Pause,
-    MainMenu,
-    Settings,
-    Logo
-} State;
-
-
-static const int targetFPS = 60;
 
 // TODO: change back to Logo
 State state = MainMenu;
 int framesCounter = 0;
-
 
 void Update(){
     switch(state)
@@ -58,7 +45,6 @@ void Update(){
             break;
     }
 }
-
 
 void Draw(){
     switch(state)

@@ -1,10 +1,11 @@
-#include "raylib.h"
-
-static const int screenHeight = 450;
-static const int screenWidth = 800;
+#include "./shared.cpp"
 
 void InitiateGraphics(){
     InitWindow( screenWidth, screenHeight, "Some Racing Game");
+}
+
+
+void DrawPlayer(){
 }
 
 void DrawRoad(){
