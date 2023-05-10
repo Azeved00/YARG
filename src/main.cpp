@@ -18,45 +18,61 @@ static const int targetFPS = 60;
 State state = MainMenu;
 int framesCounter = 0;
 
+void DrawRoad(){
+    //grass
+    DrawRectangle( 0, 0, screenWidth, screenHeight, GREEN);
+    
+    //road
+    DrawRectangle( screenWidth*0.1, 0, screenWidth*0.8, screenHeight, DARKGRAY);
+    
+    //lines
+    DrawRectangle( screenWidth*0.08, 0, screenWidth*0.02, screenHeight, WHITE);
+    DrawRectangle( screenWidth*0.29, 0, screenWidth*0.01, screenHeight, WHITE);
+    DrawRectangle( screenWidth*0.49, 0, screenWidth*0.02, screenHeight, WHITE);
+    DrawRectangle( screenWidth*0.69, 0, screenWidth*0.01, screenHeight, WHITE);
+    DrawRectangle( screenWidth*0.90, 0, screenWidth*0.02, screenHeight, WHITE);
+
+}
+
 void Update(){
     switch(state)
-        {
-            case Logo:
-                // TODO: Update LOGO screen variables here!
-                
-                // Wait for 2 seconds (120 frames) before jumping to TITLE screen
-                framesCounter++;
-                if(framesCounter == 120)
-                    state = MainMenu;
-                break;
+    {
+        case Logo:
+            // TODO: Update LOGO screen variables here!
             
-            case MainMenu:
-                // TODO: Update TITLE screen variables here!
-                
-                // Press enter to change to GAMEPLAY screen
-                if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
-                    state = GamePlay;
-                break;
+            // Wait for 2 seconds (120 frames) before jumping to TITLE screen
+            framesCounter++;
+            if(framesCounter == 120)
+                state = MainMenu;
+            break;
+        
+        case MainMenu:
+            // TODO: Update TITLE screen variables here!
             
-            case GamePlay:
-                // TODO: Update GAMEPLAY screen variables here!
-                
-                // Press enter to change to ENDING screen
-                if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
-                    state = Lost;
-                break;
+            // Press enter to change to GAMEPLAY screen
+            if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
+                state = GamePlay;
+            break;
+        
+        case GamePlay:
+            // TODO: Update GAMEPLAY screen variables here!
             
-            case Lost:
-                // TODO: Update ENDING screen variables here!
+            // Press enter to change to ENDING screen
+            if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
+                state = Lost;
+            break;
+        
+        case Lost:
+            // TODO: Update ENDING screen variables here!
 
-                // Press enter to return to TITLE screen
-                if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
-                    state = MainMenu;
-                break;
-            
-            default: 
-                break;
-        }
+            // Press enter to return to TITLE screen
+            if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
+                state = MainMenu;
+            break;
+        
+        default: 
+            break;
+    }
 }
 
 void Draw(){
@@ -80,10 +96,7 @@ void Draw(){
                 case GamePlay:
                 
                     // TODO: Draw GAMEPLAY screen here!
-                    DrawRectangle(0, 0, screenWidth, screenHeight, PURPLE);
-                    DrawText("GAMEPLAY SCREEN", 20, 20, 40, MAROON);
-                    DrawText("PRESS ENTER or TAP to JUMP to ENDING SCREEN", 130, 220, 20, MAROON);
-
+                    DrawRoad();
                     break;
                 
                 case Lost:
