@@ -5,11 +5,6 @@ void InitiateGraphics(){
 }
 
 
-void DrawCar(Car* player){
-
-
-}
-
 void DrawRoad(){
     //grass
     DrawRectangle( 0, 0, screenWidth, screenHeight, GREEN);
