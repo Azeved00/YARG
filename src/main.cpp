@@ -4,6 +4,7 @@
 // TODO: change back to Logo
 State state = MainMenu;
 int framesCounter = 0;
+Car* player = new Car(screenWidth*0.5,screenHeight*0.8,YELLOW);
 
 void Update(){
     switch(state)
@@ -19,7 +20,7 @@ void Update(){
         
         case MainMenu:
             // TODO: Update TITLE screen variables here!
-            
+
             // Press enter to change to GAMEPLAY screen
             if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
                 state = GamePlay;
@@ -28,11 +29,13 @@ void Update(){
         case GamePlay:
             // TODO: Update GAMEPLAY screen variables here!
             
-            // Press enter to change to ENDING screen
-            if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
-                state = Lost;
+            if (IsKeyDown(KEY_A))
+                player->posX -= screenWidth*0.02;
+
+            if (IsKeyDown(KEY_D))
+                player->posX += screenWidth*0.02;
+
             break;
-        
         case Lost:
             // TODO: Update ENDING screen variables here!
 
@@ -65,9 +68,8 @@ void Draw(){
             break;
         
         case GamePlay:
-        
-            // TODO: Draw GAMEPLAY screen here!
             DrawRoad();
+            player->Draw();
             break;
         
         case Lost:

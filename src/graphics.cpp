@@ -5,7 +5,9 @@ void InitiateGraphics(){
 }
 
 
-void DrawPlayer(){
+void DrawCar(Car* player){
+
+
 }
 
 void DrawRoad(){
