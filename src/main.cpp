@@ -1,4 +1,5 @@
 #include "raylib.h"
+#include "./graphics.cpp"
 
 typedef enum State {
     GamePlay,
@@ -10,29 +11,12 @@ typedef enum State {
 } State;
 
 
-static const int screenHeight = 450;
-static const int screenWidth = 800;
 static const int targetFPS = 60;
 
 // TODO: change back to Logo
 State state = MainMenu;
 int framesCounter = 0;
 
-void DrawRoad(){
-    //grass
-    DrawRectangle( 0, 0, screenWidth, screenHeight, GREEN);
-    
-    //road
-    DrawRectangle( screenWidth*0.1, 0, screenWidth*0.8, screenHeight, DARKGRAY);
-    
-    //lines
-    DrawRectangle( screenWidth*0.08, 0, screenWidth*0.02, screenHeight, WHITE);
-    DrawRectangle( screenWidth*0.29, 0, screenWidth*0.01, screenHeight, WHITE);
-    DrawRectangle( screenWidth*0.49, 0, screenWidth*0.02, screenHeight, WHITE);
-    DrawRectangle( screenWidth*0.69, 0, screenWidth*0.01, screenHeight, WHITE);
-    DrawRectangle( screenWidth*0.90, 0, screenWidth*0.02, screenHeight, WHITE);
-
-}
 
 void Update(){
     switch(state)
@@ -75,48 +59,49 @@ void Update(){
     }
 }
 
+
 void Draw(){
     switch(state)
-            {
-                case Logo:
-                    // TODO: Draw LOGO screen here!
-                    DrawText("LOGO SCREEN", 20, 20, 40, LIGHTGRAY);
-                    DrawText("WAIT for 2 SECONDS...", 290, 220, 20, GRAY);
+    {
+        case Logo:
+            // TODO: Draw LOGO screen here!
+            DrawText("LOGO SCREEN", 20, 20, 40, LIGHTGRAY);
+            DrawText("WAIT for 2 SECONDS...", 290, 220, 20, GRAY);
 
-                    break;
-                
-                case MainMenu:
-                    // TODO: Draw TITLE screen here!
-                    DrawRectangle(0, 0, screenWidth, screenHeight, GREEN);
-                    DrawText("MENU SCREEN", 20, 20, 40, DARKGREEN);
-                    DrawText("PRESS ENTER or TAP to JUMP to GAMEPLAY SCREEN", 120, 220, 20, DARKGREEN);
+            break;
+        
+        case MainMenu:
+            // TODO: Draw TITLE screen here!
+            DrawRectangle(0, 0, screenWidth, screenHeight, GREEN);
+            DrawText("MENU SCREEN", 20, 20, 40, DARKGREEN);
+            DrawText("PRESS ENTER or TAP to JUMP to GAMEPLAY SCREEN", 120, 220, 20, DARKGREEN);
 
-                    break;
-                
-                case GamePlay:
-                
-                    // TODO: Draw GAMEPLAY screen here!
-                    DrawRoad();
-                    break;
-                
-                case Lost:
-                
-                    // TODO: Draw ENDING screen here!
-                    DrawRectangle(0, 0, screenWidth, screenHeight, BLUE);
-                    DrawText("ENDING SCREEN", 20, 20, 40, DARKBLUE);
-                    DrawText("PRESS ENTER or TAP to RETURN to TITLE SCREEN", 120, 220, 20, DARKBLUE);
+            break;
+        
+        case GamePlay:
+        
+            // TODO: Draw GAMEPLAY screen here!
+            DrawRoad();
+            break;
+        
+        case Lost:
+        
+            // TODO: Draw ENDING screen here!
+            DrawRectangle(0, 0, screenWidth, screenHeight, BLUE);
+            DrawText("ENDING SCREEN", 20, 20, 40, DARKBLUE);
+            DrawText("PRESS ENTER or TAP to RETURN to TITLE SCREEN", 120, 220, 20, DARKBLUE);
 
-                    break;
-                
-                default: 
-                    break;
-            }
+            break;
+        
+        default: 
+            break;
+    }
 }
 
 int main(void)
 {
-    InitWindow( screenWidth, screenHeight, "Some Racing Game");
     SetTargetFPS(targetFPS);
+    InitiateGraphics();
 
     while (!WindowShouldClose())
     {
