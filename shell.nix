@@ -1,8 +1,9 @@
 { pkgs ? import <nixpkgs> {  } }:
-pkgs.mkShell{
-
-    name = "A Simle Shell";
-    nativeBuildInputs = with pkgs; [
+let
+    root = builtins.getEnv "PWD";
+in pkgs.mkShell{
+    name = "Game Development";
+    buildInputs = with pkgs; [
         gnumake
         alsaLib
         mesa
@@ -17,8 +18,12 @@ pkgs.mkShell{
         mesa_glu
         raylib
     ];
+    ROOT=root;
 
     shellHook = ''
-        echo "Hi";
+        echo -ne "\033]0;Game Development\007"
+
+        alias build='gcc -o $ROOT/game.bin $ROOT/src/main.cpp -lraylib -lGL -lm -lpthread -ldl -lrt -lX11 -latomic'
+        alias run='$ROOT/game.bin'
     '';
 }
