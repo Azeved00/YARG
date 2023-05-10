@@ -23,8 +23,10 @@ in pkgs.mkShell{
     shellHook = ''
         echo -ne "\033]0;Game Development\007"
 
-        alias build='gcc -o $ROOT/game.bin -Wall $ROOT/src/main.cpp -lraylib -lGL -lm -lpthread -ldl -lrt -lX11 -latomic'
+        alias build='g++ -o $ROOT/game.bin -Wall $ROOT/src/main.cpp -lraylib -lGL -lm -lpthread -ldl -lrt -lX11 -latomic'
         
         alias run='$ROOT/game.bin'
+
+        alias exec='build && run'
     '';
 }
