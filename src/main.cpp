@@ -1,6 +1,8 @@
 #include "./shared.cpp"
 #include "./graphics.cpp"
 #include "./player.cpp"
+#include "./enemy.cpp"
+
 
 // TODO: change back to Logo
 // TODO: Find way to display logo or smth
@@ -21,6 +23,8 @@ void Update(){
         
         case GamePlay:
             UpdatePlayer();
+            UpdateEnemies();
+            GenerateEnemy();
             break;
         case Lost:
             // Press enter to return to TITLE screen
@@ -52,6 +56,7 @@ void Draw(){
         case GamePlay:
             DrawRoad();
             player->Draw();
+            DrawEnemies();
             break;
         
         case Lost:

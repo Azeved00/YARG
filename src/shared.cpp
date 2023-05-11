@@ -10,7 +10,6 @@ static const int screenWidth = 800;
 static const int targetFPS = 60;
 
 
-
 typedef enum State {
     GamePlay,
     Lost,
@@ -21,17 +20,19 @@ typedef enum State {
 } State;
 
 class Car{
+    static const int baseSpeed = 4;
     public: 
         int posX;
         int posY;
         Color color;
-        float speed;
+        unsigned int speed;
         int direction;
 
         Car(int posX, int posY, Color color){
             this->posX = posX;
             this->posY = posY;
             this->color = color;
+            this->speed = baseSpeed;
         }
 
         void Draw(){
