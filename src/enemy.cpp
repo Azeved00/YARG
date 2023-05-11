@@ -43,3 +43,16 @@ void UpdateEnemies(){
         }
     }
 }
+
+bool CheckForCollision(Car* car){
+    for(Car* c : enemies){
+        if(c->IsColliding(car))
+            return true;
+    }
+    return false;
+}
+
+void ResetEnemies(){
+    enemies.clear();
+}
+

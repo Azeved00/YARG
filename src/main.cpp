@@ -25,9 +25,12 @@ void Update(){
             UpdatePlayer();
             UpdateEnemies();
             GenerateEnemy();
+            if(CheckForCollision(player))
+                state = Lost;
             break;
         case Lost:
             // Press enter to return to TITLE screen
+            ResetEnemies();
             if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
                 state = MainMenu;
             break;
