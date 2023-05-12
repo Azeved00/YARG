@@ -5,6 +5,19 @@ void InitiateGraphics(){
     InitWindow( screenWidth, screenHeight, "Some Racing Game");
 }
 
+void DrawEnd(double timer){
+    DrawRectangle(0, 0, screenWidth, screenHeight, BLUE);
+    DrawText("ENDING SCREEN", 20, 20, 40, DARKBLUE);
+    DrawText("PRESS ENTER or TAP to RETURN to TITLE SCREEN", 120, 220, 20, DARKBLUE);
+    
+    int seconds = (int) timer;
+    int micro = -(int) round((seconds - timer)*100);
+    const char* s = (std::to_string(seconds) + ":" + std::to_string(micro)).c_str();
+
+    int width = MeasureText(s, 50);
+    DrawText(s, (screenWidth-width)*0.5,(screenHeight-50)*0.5,50,GRAY);
+}
+
 void DrawTimer(double time){
     int seconds = (int) time;
     int micro = -(int) round((seconds - time)*100);

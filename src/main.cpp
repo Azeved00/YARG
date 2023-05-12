@@ -32,8 +32,10 @@ void Update(){
             UpdatePlayer();
             UpdateEnemies();
             GenerateEnemy();
-            if(CheckForCollision(player))
+            if(CheckForCollision(player)){
                 state = Lost;
+                gameTime = GetTime() - gameTime;
+            }
                 
             break;
 
@@ -72,9 +74,7 @@ void Draw(){
             break;
         
         case Lost:
-            DrawRectangle(0, 0, screenWidth, screenHeight, BLUE);
-            DrawText("ENDING SCREEN", 20, 20, 40, DARKBLUE);
-            DrawText("PRESS ENTER or TAP to RETURN to TITLE SCREEN", 120, 220, 20, DARKBLUE);
+            DrawEnd(gameTime); 
 
             break;
         
