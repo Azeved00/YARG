@@ -7,6 +7,13 @@
 // TODO: change back to Logo
 // TODO: Find way to display logo or smth
 State state = MainMenu;
+double gameTime = 0.0f;
+
+void StartGame(){
+    ResetEnemies();
+    state = GamePlay;
+    gameTime = GetTime();
+}
 
 void Update(){
     switch(state)
@@ -18,7 +25,7 @@ void Update(){
         case MainMenu:
             // Press enter to change to GAMEPLAY screen
             if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
-                state = GamePlay;
+                StartGame();
             break;
         
         case GamePlay:
@@ -27,12 +34,13 @@ void Update(){
             GenerateEnemy();
             if(CheckForCollision(player))
                 state = Lost;
+                
             break;
+
         case Lost:
             // Press enter to return to TITLE screen
-            ResetEnemies();
             if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
-                state = MainMenu;
+                StartGame();
             break;
         
         default: 
@@ -60,6 +68,7 @@ void Draw(){
             DrawRoad();
             player->Draw();
             DrawEnemies();
+            DrawTimer(GetTime()-gameTime);
             break;
         
         case Lost:

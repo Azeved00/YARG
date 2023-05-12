@@ -1,9 +1,16 @@
 #include "./shared.cpp"
+#include <string>
 
 void InitiateGraphics(){
     InitWindow( screenWidth, screenHeight, "Some Racing Game");
 }
 
+void DrawTimer(double time){
+    int seconds = (int) time;
+    int micro = -(int) round((seconds - time)*100);
+    std::string s = std::to_string(seconds) + ":" + std::to_string(micro);
+    DrawText(s.c_str(), 10,50,20,GRAY);
+}
 
 void DrawRoad(){
     //grass
