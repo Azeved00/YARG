@@ -8,3 +8,5 @@ it will be a kind of rouge like (or lite, not decided) game
   1. A Point system.
   2. Better drawing system
   3. Better Menus
+  4. A winning situation
+  5. Different Roads randomly chosen
