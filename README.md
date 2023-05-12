@@ -10,3 +10,4 @@ it will be a kind of rouge like (or lite, not decided) game
   3. Better Menus
   4. A winning situation
   5. Different Roads randomly chosen
+  6. Full screen Support
