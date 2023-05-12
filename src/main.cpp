@@ -72,6 +72,7 @@ void Draw(){
         default: 
             break;
     }
+    DrawFPS(10,10);
 }
 
 int main(void)
