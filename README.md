@@ -11,3 +11,5 @@ it will be a kind of rouge like (or lite, not decided) game
   4. A winning situation
   5. Different Roads randomly chosen
   6. Full screen Support
+  7. A camera system
+  8. 
