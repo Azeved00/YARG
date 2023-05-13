@@ -32,10 +32,16 @@ void Update(){
             UpdatePlayer();
             UpdateEnemies();
             GenerateEnemy();
-            if(CheckForCollision(player)){
+            if(CheckForCollision(player))
+            {
                 state = Lost;
                 gameTime = GetTime() - gameTime;
             }
+            if(IsKeyPressed(KEY_P))
+            {
+                state = Pause;
+            }
+
                 
             break;
 
@@ -45,6 +51,12 @@ void Update(){
                 StartGame();
             break;
         
+        case Pause:
+            if(IsKeyPressed(KEY_P))
+                state = GamePlay;
+            if(IsKeyPressed(KEY_ENTER))
+                state = Lost;
+            break;
         default: 
             break;
     }
@@ -75,9 +87,15 @@ void Draw(){
         
         case Lost:
             DrawEnd(gameTime); 
-
             break;
-        
+
+        case Pause:
+            DrawRectangle(0, 0, screenWidth, screenHeight, GOLD);
+            DrawText("PAUSE SCREEN", 20, 20, 40, ORANGE);
+            DrawText("PRESS P too GAMEPLAY SCREEN", 120, 220, 20, ORANGE);
+            DrawText("PRESS ENTER too GAMEPLAY SCREEN", 120, 300, 20, ORANGE);
+            break;
+
         default: 
             break;
     }
