@@ -1,8 +1,19 @@
 #include "./shared.cpp"
 #include <string>
 
+Image roadImage;
+Texture roadTexture;
+
 void InitiateGraphics(){
     InitWindow( screenWidth, screenHeight, "Some Racing Game");
+    
+    roadImage = LoadImage("./assets/road.png");
+    if(!IsImageReady(roadImage)){
+        printf("Image ../assets/road.png is not ready\n");
+        return;
+    }
+
+    roadTexture = LoadTextureFromImage(roadImage);
 }
 
 void DrawEnd(double timer){
@@ -26,6 +37,8 @@ void DrawTimer(double time){
 }
 
 void DrawRoad(){
+    ClearBackground(GREEN);
+    /*
     //grass
     DrawRectangle( 0, 0, screenWidth, screenHeight, GREEN);
     
@@ -38,7 +51,10 @@ void DrawRoad(){
     DrawRectangle( screenWidth*0.49, 0, screenWidth*0.02, screenHeight, WHITE);
     DrawRectangle( screenWidth*0.69, 0, screenWidth*0.01, screenHeight, WHITE);
     DrawRectangle( screenWidth*0.90, 0, screenWidth*0.02, screenHeight, WHITE);
+    */
 
+    DrawTexture(roadTexture, 
+            screenWidth/2 - roadTexture.width/2, 
+            screenHeight/2 - roadTexture.height/2, 
+            WHITE);
 }
-
-
