@@ -8,14 +8,22 @@
 // TODO: Find way to display logo or smth
 State state = MainMenu;
 double gameTime = 0.0f;
+Player* player = new Player();
 
-void StartGame(){
+void StartGame()
+{
     ResetEnemies();
     state = GamePlay;
     gameTime = GetTime();
+    if(player != NULL){
+        delete player;
+    }
+
+    player = new Player();
 }
 
-void Update(){
+void Update()
+{
     switch(state)
     {
         case Logo:
@@ -29,10 +37,10 @@ void Update(){
             break;
         
         case GamePlay:
-            UpdatePlayer();
+            player->Update();
             UpdateEnemies();
             GenerateEnemy();
-            if(CheckForCollision(player))
+            if(CheckForCollision(player->car))
             {
                 state = Lost;
                 gameTime = GetTime() - gameTime;
@@ -62,7 +70,33 @@ void Update(){
     }
 }
 
-void Draw(){
+void DrawHud(){
+    DrawTimer(GetTime()-gameTime);
+}
+
+void Draw()
+{
+
+    ClearBackground(GREEN);
+    
+    BeginDrawing();
+    
+    //draw things not in screen
+    BeginMode2D(player->camera);
+        switch(state)
+        {
+            case GamePlay:
+                DrawRoad();
+                player->Draw();
+                DrawEnemies();
+                break;
+
+            default:
+                break;
+        }
+    EndMode2D();
+
+    //draw things allways in scren;
     switch(state)
     {
         case Logo:
@@ -79,12 +113,9 @@ void Draw(){
             break;
         
         case GamePlay:
-            DrawRoad();
-            player->Draw();
-            DrawEnemies();
-            DrawTimer(GetTime()-gameTime);
+            DrawHud();
             break;
-        
+
         case Lost:
             DrawEnd(gameTime); 
             break;
@@ -100,21 +131,19 @@ void Draw(){
             break;
     }
     DrawFPS(10,10);
+    EndDrawing();
 }
 
 int main(void)
 {
     SetTargetFPS(targetFPS);
     InitiateGraphics();
-
+    
     while (!WindowShouldClose())
     {
         Update();
         
-        BeginDrawing();
-      
-        Draw();
-        
+        Draw();            
         EndDrawing();
     }
 

@@ -6,10 +6,8 @@ it will be a kind of rouge like (or lite, not decided) game
 
 # Issues & Ideas in development:
   1. A Point system.
-  2. Better drawing system
-  3. Better Menus
-  4. A winning situation
-  5. Different Roads randomly chosen
-  6. Full screen Support
-  7. A camera system
-  8. 
+  1. Better Menus
+  1. A winning situation
+  1. Different Roads randomly chosen
+  1. Full screen Support
+  1. THe player should not be allowed to leave the road

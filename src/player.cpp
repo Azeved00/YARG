@@ -2,16 +2,54 @@
 #define PLAYER_CPP
 
 #include "./shared.cpp"
+#include "./raylib.h"
 
-Car* player = new Car(screenWidth*0.5,screenHeight*0.8,YELLOW);
+class Player 
+{
+public:
+    Car* car;
+    Camera2D camera;
 
-void UpdatePlayer(){
-    if (IsKeyDown(KEY_A))
-        player->posX -= screenWidth*0.01;
+    Player()
+    {
+        int width = screenWidth*0.5;
+        int height = screenHeight*0.8;
+        this->car = new Car(width,height,YELLOW);
 
-    if (IsKeyDown(KEY_D))
-        player->posX += screenWidth*0.01;
+        this->camera = { 0 };
+        camera.target = (Vector2){ (float) width, (float) height };
+        camera.offset = (Vector2){ screenWidth/2.0f, screenHeight*0.8f };
+        camera.rotation = 0.0f;
+        camera.zoom = 1.0f;
+    }
 
-}
+    ~Player()
+    {
+        delete this->car;
+    }
+
+    void Update()
+    {
+        if (IsKeyDown(KEY_W))
+            this->car->posY -= screenHeight*0.01;
+        
+        if (IsKeyDown(KEY_S))
+            this->car->posY += screenHeight*0.01;
+
+        if (IsKeyDown(KEY_A))
+            this->car->posX -= screenWidth*0.01;
+
+        if (IsKeyDown(KEY_D))
+            this->car->posX += screenWidth*0.01;
+    
+        camera.target = (Vector2){ (float) this->car->posX, (float) this->car->posY };
+    }
+
+    void Draw()
+    {
+        this->car->Draw();
+    }
+};
+
 
 #endif
