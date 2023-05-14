@@ -31,14 +31,6 @@ void DrawEnd(double timer)
     DrawText(s, (screenWidth-width)*0.5,(screenHeight-50)*0.5,50,GRAY);
 }
 
-void DrawTimer(double time)
-{
-    int seconds = (int) time;
-    int micro = -(int) round((seconds - time)*100);
-    std::string s = std::to_string(seconds) + ":" + std::to_string(micro);
-    DrawText(s.c_str(), 10,50,20,GRAY);
-}
-
 void DrawRoad()
 {
     for(int i = 0; i < 5; i++)

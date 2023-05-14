@@ -3,51 +3,63 @@
 
 #include "./shared.cpp"
 #include "./raylib.h"
+#include "./graphics.cpp"
 
-class Player 
+class Player : public Car 
 {
 public:
-    Car* car;
     Camera2D camera;
+    double gameTime;
 
-    Player()
+    Player() : Car( screenWidth*0.5, screenHeight*0.8, YELLOW)
     {
-        int width = screenWidth*0.5;
-        int height = screenHeight*0.8;
-        this->car = new Car(width,height,YELLOW);
-
         this->camera = { 0 };
-        camera.target = (Vector2){ (float) width, (float) height };
+        camera.target = (Vector2){ (float) posX, (float) posX};
         camera.offset = (Vector2){ screenWidth/2.0f, screenHeight*0.8f };
         camera.rotation = 0.0f;
         camera.zoom = 1.0f;
+
+        gameTime = GetTime();
     }
 
     ~Player()
     {
-        delete this->car;
+        delete this;
     }
 
     void Update()
     {
         if (IsKeyDown(KEY_W))
-            this->car->posY -= screenHeight*0.01;
+            this->posY -= screenHeight*0.01;
         
         if (IsKeyDown(KEY_S))
-            this->car->posY += screenHeight*0.01;
+            this->posY += screenHeight*0.01;
 
         if (IsKeyDown(KEY_A))
-            this->car->posX -= screenWidth*0.01;
+            this->posX -= screenWidth*0.01;
 
         if (IsKeyDown(KEY_D))
-            this->car->posX += screenWidth*0.01;
+            this->posX += screenWidth*0.01;
     
-        camera.target = (Vector2){ (float) this->car->posX, (float) this->car->posY };
+        camera.target = (Vector2){ (float) this->posX, (float) this->posY };
+
+        gameTime = GetTime() - gameTime;
     }
 
-    void Draw()
+    void DrawCar()
     {
-        this->car->Draw();
+        this->Draw();
+    }
+
+    void DrawHud()
+    {
+        double time = GetTime() - gameTime;
+        int seconds = (int) time;
+        int micro = -(int) round((seconds - time)*100);
+        std::string s = std::to_string(seconds) + ":" + std::to_string(micro);
+        DrawText(s.c_str(), 10,50,20,BLACK);
+
+        //DrawText();
     }
 };
 

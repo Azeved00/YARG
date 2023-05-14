@@ -7,14 +7,12 @@
 // TODO: change back to Logo
 // TODO: Find way to display logo or smth
 State state = MainMenu;
-double gameTime = 0.0f;
 Player* player = new Player();
 
 void StartGame()
 {
     ResetEnemies();
     state = GamePlay;
-    gameTime = GetTime();
     if(player != NULL){
         delete player;
     }
@@ -43,19 +41,16 @@ void Update()
             if(CheckForCollision(player->car))
             {
                 state = Lost;
-                gameTime = GetTime() - gameTime;
             }
             if(IsKeyPressed(KEY_P))
             {
                 state = Pause;
             }
-
-                
             break;
 
         case Lost:
             // Press enter to return to TITLE screen
-            if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
+            if (IsKeyPressed(KEY_ENTER))
                 StartGame();
             break;
         
@@ -65,13 +60,13 @@ void Update()
             if(IsKeyPressed(KEY_ENTER))
                 state = Lost;
             break;
+
         default: 
             break;
     }
 }
 
 void DrawHud(){
-    DrawTimer(GetTime()-gameTime);
 }
 
 void Draw()
@@ -87,7 +82,7 @@ void Draw()
         {
             case GamePlay:
                 DrawRoad();
-                player->Draw();
+                player->DrawCar();
                 DrawEnemies();
                 break;
 
@@ -113,11 +108,11 @@ void Draw()
             break;
         
         case GamePlay:
-            DrawHud();
+            player->DrawHud();
             break;
 
         case Lost:
-            DrawEnd(gameTime); 
+            DrawEnd(player->gameTime); 
             break;
 
         case Pause:
