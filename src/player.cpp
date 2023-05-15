@@ -10,26 +10,31 @@ class Player : public Car
 public:
     Camera2D camera;
     double gameTime;
+    Vector2 initial;
 
-    Player() : Car( screenWidth*0.5, screenHeight*0.8, YELLOW, {0,0})
+    Player() : Car( screenWidth*0.5*0.88, screenHeight*0.7, YELLOW, {0,0})
     {
         this->camera = { 0 };
-        camera.target = position;
-        camera.offset = (Vector2){ screenWidth/2.0f, screenHeight*0.8f };
+        camera.target = {hitbox.x,hitbox.y};
+        camera.offset = (Vector2){ screenWidth/2.0f - hitbox.width/2.0f, 
+            screenHeight/2.0f - hitbox.height/2.0f };
         camera.rotation = 0.0f;
         camera.zoom = 1.0f;
 
         gameTime = GetTime();
+
+        initial = { hitbox.x, hitbox.y };
     }
     
     void Reset()
     {
         gameTime = GetTime();
 
-        position = {screenWidth*0.5,screenHeight*0.8};
+        hitbox.x = initial.x;
+        hitbox.y = initial.y;
         speed = {0,0};
         aceleration = {0,0};
-        camera.target = position;
+        camera.target = {hitbox.x, hitbox.y};
     }
 
     ~Player()
@@ -51,9 +56,9 @@ public:
         if (IsKeyDown(KEY_D))
             speed.x += 0.1;
     
-        this->position.y += speed.y;
-        this->position.x += speed.x;
-        camera.target = position;
+        this->hitbox.y += speed.y;
+        this->hitbox.x += speed.x;
+        camera.target = {hitbox.x,hitbox.y};
 
         //gameTime = GetTime() - gameTime;
     }
@@ -74,7 +79,7 @@ public:
         s = std::to_string(seconds) + ":" + std::to_string(micro);
         DrawText(s.c_str(), 10,50,20,BLACK);
 
-        s = std::to_string(position.x) + ", " + std::to_string(position.y);
+        s = std::to_string(hitbox.x) + ", " + std::to_string(hitbox.y);
         DrawText(s.c_str(),10,70,20,BLACK);
 
         s = std::to_string(speed.x) + ", " + std::to_string(speed.y) ;

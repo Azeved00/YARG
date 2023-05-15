@@ -18,7 +18,7 @@ void StartGame()
 
 bool ReachedFinish(Player* p)
 {
-    return p->position.y < -screenHeight*4 -200;
+    return p->hitbox.y < -screenHeight*4 -200;
 }
 
 void Update()

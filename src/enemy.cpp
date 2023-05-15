@@ -40,7 +40,7 @@ void UpdateEnemies(){
         Car* c = *it;
         c->Update();
         
-        if(c->position.y > screenHeight ||  -screenHeight*5 > c->position.y){
+        if(c->hitbox.y > screenHeight ||  -screenHeight*5 > c->hitbox.y){
             it = enemies.erase(it); // erase the current element and get the iterator to the next element
             it--;
         }
