@@ -22,46 +22,60 @@ typedef enum State {
 } State;
 
 class Car{
-    static const double sizeX;
-    static const double sizeY;
+    static const Vector2 size;
     
     public: 
-        int posX;
-        int posY;
         Color color;
-        unsigned int speed;
-        int direction;
+        Vector2 position;
+        Vector2 speed;
+        Vector2 aceleration;
 
-        Car(int posX, int posY, Color color, unsigned int speed = 4){
-            this->posX = posX;
-            this->posY = posY;
+        Car(int posX, int posY, Color color, Vector2 speed)
+        {
+            this->position = (Vector2){(float) posX, (float) posY};
             this->color = color;
             this->speed = speed;
+            this->aceleration = (Vector2){0,0};
         }
 
-        void Draw(){
+        void Update(){
+            position.x += speed.x;
+            position.y += speed.y;
+        }
+
+        Car(int posX, int posY, Color color)
+        {
+            this->position = (Vector2){(float) posX, (float) posY};
+            this->color = color;
+            this->speed = (Vector2){4,0};
+            this->aceleration = (Vector2){0,0};
+        }
+
+        void Draw()
+        {
             DrawRectangle(
-                this->posX - screenWidth*sizeX*0.5, 
-                this->posY - screenHeight*sizeY*0.5,
-                screenWidth*sizeX,
-                screenHeight*sizeY,
+                this->position.x - screenWidth*size.x*0.5, 
+                this->position.y - screenHeight*size.y*0.5,
+                screenWidth*size.x,
+                screenHeight*size.y,
                 this->color);
             //DrawText(std::to_string(speed).c_str(),this->posX,this->posY,10,BLACK);
         }
 
-        bool IsColliding(Car* c){
-            int offsetX = (int) round(screenWidth*sizeX*0.5);
-            int offsetY = (int) round(screenHeight*sizeY*0.5);
+        bool IsColliding(Car* c)
+        {
+            int offsetX = (int) round(screenWidth*size.x*0.5);
+            int offsetY = (int) round(screenHeight*size.y*0.5);
         
-            int left1 = this->posX - offsetX,
-                right1 = this->posX + offsetX,
-                top1 = this->posY + offsetY,
-                bottom1 = this->posY - offsetY;
+            int left1 = this->position.x - offsetX,
+                right1 = this->position.x + offsetX,
+                top1 = this->position.y + offsetY,
+                bottom1 = this->position.y - offsetY;
             
-            int left2 = c->posX - offsetX,
-                right2 = c->posX + offsetX,
-                top2 = c->posY + offsetY,
-                bottom2 = c->posY - offsetY;
+            int left2 = c->position.x - offsetX,
+                right2 = c->position.x + offsetX,
+                top2 = c->position.y + offsetY,
+                bottom2 = c->position.y - offsetY;
 
             bool res = false;
             res |= left1 < left2 &&  left2 < right1 &&  bottom1 < top2 && top2 < top1;
@@ -73,7 +87,6 @@ class Car{
         }
 };
 
-const double Car::sizeX = 0.12;
-const double Car::sizeY = 0.20;
+const Vector2 Car::size = (Vector2) {0.12,0.20};
 
 #endif

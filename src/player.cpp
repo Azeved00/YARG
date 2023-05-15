@@ -11,10 +11,10 @@ public:
     Camera2D camera;
     double gameTime;
 
-    Player() : Car( screenWidth*0.5, screenHeight*0.8, YELLOW, 8)
+    Player() : Car( screenWidth*0.5, screenHeight*0.8, YELLOW, {0,0})
     {
         this->camera = { 0 };
-        camera.target = (Vector2){ (float) posX, (float) posY};
+        camera.target = position;
         camera.offset = (Vector2){ screenWidth/2.0f, screenHeight*0.8f };
         camera.rotation = 0.0f;
         camera.zoom = 1.0f;
@@ -25,9 +25,11 @@ public:
     void Reset()
     {
         gameTime = GetTime();
-        posX = screenWidth*0.5;
-        posY = screenHeight*0.8;
-        camera.target = (Vector2){(float) posX, (float) posY};
+
+        position = {screenWidth*0.5,screenHeight*0.8};
+        speed = {0,0};
+        aceleration = {0,0};
+        camera.target = position;
     }
 
     ~Player()
@@ -38,18 +40,20 @@ public:
     void Update()
     {
         if (IsKeyDown(KEY_W))
-            this->posY -= speed;
+            speed.y -= 0.1;
         
         if (IsKeyDown(KEY_S))
-            this->posY += speed;
+            speed.y += 0.1;
 
         if (IsKeyDown(KEY_A))
-            this->posX -= speed;
+            speed.x -= 0.1;
 
         if (IsKeyDown(KEY_D))
-            this->posX += speed;
+            speed.x += 0.1;
     
-        camera.target = (Vector2){ (float) this->posX, (float) this->posY };
+        this->position.y += speed.y;
+        this->position.x += speed.x;
+        camera.target = position;
 
         //gameTime = GetTime() - gameTime;
     }
@@ -70,13 +74,12 @@ public:
         s = std::to_string(seconds) + ":" + std::to_string(micro);
         DrawText(s.c_str(), 10,50,20,BLACK);
 
-        s = std::to_string(posX) + ", " + std::to_string(posY);
+        s = std::to_string(position.x) + ", " + std::to_string(position.y);
         DrawText(s.c_str(),10,70,20,BLACK);
 
-        s = std::to_string(speed) ;
+        s = std::to_string(speed.x) + ", " + std::to_string(speed.y) ;
         DrawText(s.c_str(),10,90,20,BLACK);
     }
-
 
 };
 

@@ -9,9 +9,10 @@ it will be a kind of rouge like (or lite, not decided) game
 1. A Point system.
 1. Different Roads randomly chosen.
 1. Full screen Support.
-1. THe player should not be allowed to leave the road.
+1. The player should not be allowed to leave the road.
     1. Maybe add a padding around the road for the player to have a little more space to manuver
 1. Time is not being counted correctly.
+1. Make car turn with a and d insted of having X speed
 
 # Ideas for the future:
 

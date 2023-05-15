@@ -30,8 +30,7 @@ void GenerateEnemy(){
 
     int lane = GetRandomValue(0,3);
 
-    Car* c = new Car(lanes[lane].first,lanes[lane].second,BLUE);
-    c->direction = (lane < 2) *2 -1;
+    Car* c = new Car(lanes[lane].first,lanes[lane].second,BLUE,{0,(float)((lane < 2) *2 -1)});
 
     enemies.push_back(c);
 }
@@ -39,9 +38,9 @@ void GenerateEnemy(){
 void UpdateEnemies(){
     for (auto it = enemies.begin(); it != enemies.end(); it++) {
         Car* c = *it;
-        c->posY += c->speed * c->direction;
+        c->Update();
         
-        if(c->posY > screenHeight ||  -screenHeight*5 > c->posY){
+        if(c->position.y > screenHeight ||  -screenHeight*5 > c->position.y){
             it = enemies.erase(it); // erase the current element and get the iterator to the next element
             it--;
         }
