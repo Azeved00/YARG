@@ -57,6 +57,12 @@ void Update()
                 StartGame();
             break;
         
+        case Won:
+            // Press enter to return to TITLE screen
+            if (IsKeyPressed(KEY_ENTER))
+                StartGame();
+            break;
+
         case Pause:
             if(IsKeyPressed(KEY_P))
                 state = GamePlay;
@@ -64,7 +70,7 @@ void Update()
                 state = Lost;
             break;
 
-        default: 
+        case Settings:
             break;
     }
 }
