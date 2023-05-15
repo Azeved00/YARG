@@ -16,6 +16,11 @@ void StartGame()
     player->Reset();
 }
 
+bool ReachedFinish(Player* p)
+{
+    return p->posY < -screenHeight*4 -200;
+}
+
 void Update()
 {
     switch(state)
@@ -38,6 +43,8 @@ void Update()
             {
                 state = Lost;
             }
+            if(ReachedFinish(player))
+                state = Won;
             if(IsKeyPressed(KEY_P))
             {
                 state = Pause;
@@ -64,7 +71,6 @@ void Update()
 
 void Draw()
 {
-
     ClearBackground(GREEN);
     
     BeginDrawing();
@@ -89,14 +95,13 @@ void Draw()
     {
         case Logo:
             DrawText("LOGO SCREEN", 20, 20, 40, LIGHTGRAY);
-            DrawText("WAIT for 2 SECONDS...", 290, 220, 20, GRAY);
 
             break;
         
         case MainMenu:
             DrawRectangle(0, 0, screenWidth, screenHeight, GREEN);
             DrawText("MENU SCREEN", 20, 20, 40, DARKGREEN);
-            DrawText("PRESS ENTER or TAP to JUMP to GAMEPLAY SCREEN", 120, 220, 20, DARKGREEN);
+            DrawText("PRESS ENTER or TAP to JUMP to GAMEPLAY SCREEN", 120, screenHeight-30, 20, DARKGREEN);
 
             break;
         
@@ -108,14 +113,18 @@ void Draw()
             DrawEnd(player->gameTime); 
             break;
 
+        case Won:
+            DrawWon(player->gameTime);
+            break;
+
         case Pause:
             DrawRectangle(0, 0, screenWidth, screenHeight, GOLD);
             DrawText("PAUSE SCREEN", 20, 20, 40, ORANGE);
-            DrawText("PRESS P too GAMEPLAY SCREEN", 120, 220, 20, ORANGE);
-            DrawText("PRESS ENTER too GAMEPLAY SCREEN", 120, 300, 20, ORANGE);
+            DrawText("PRESS P too GAMEPLAY SCREEN", 120, screenHeight-30, 20, ORANGE);
+            DrawText("PRESS ENTER too GAMEPLAY SCREEN", 120, screenHeight-60, 20, ORANGE);
             break;
-
-        default: 
+        
+        case Settings:
             break;
     }
     DrawFPS(10,10);
