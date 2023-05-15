@@ -1,3 +1,5 @@
+#ifndef GRAPHICS_CPP
+#define GRAPHICS_CPP
 #include "./shared.cpp"
 #include <string>
 
@@ -38,3 +40,5 @@ void DrawRoad()
         DrawTexture(roadTexture, 0, -screenHeight*i, WHITE);
     }
 }
+
+#endif

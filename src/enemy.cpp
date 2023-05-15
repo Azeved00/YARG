@@ -1,3 +1,6 @@
+#ifndef ENEMY_CPP
+#define ENEMY_CPP
+
 #include <vector>
 #include <math.h>
 #include "./shared.cpp"
@@ -55,4 +58,4 @@ bool CheckForCollision(Car* car){
 void ResetEnemies(){
     enemies.clear();
 }
-
+#endif

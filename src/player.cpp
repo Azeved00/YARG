@@ -14,12 +14,20 @@ public:
     Player() : Car( screenWidth*0.5, screenHeight*0.8, YELLOW)
     {
         this->camera = { 0 };
-        camera.target = (Vector2){ (float) posX, (float) posX};
+        camera.target = (Vector2){ (float) posX, (float) posY};
         camera.offset = (Vector2){ screenWidth/2.0f, screenHeight*0.8f };
         camera.rotation = 0.0f;
         camera.zoom = 1.0f;
 
         gameTime = GetTime();
+    }
+    
+    void Reset()
+    {
+        gameTime = GetTime();
+        posX = screenWidth*0.5;
+        posY = screenHeight*0.8;
+        camera.target = (Vector2){(float) posX, (float) posY};
     }
 
     ~Player()
@@ -43,7 +51,7 @@ public:
     
         camera.target = (Vector2){ (float) this->posX, (float) this->posY };
 
-        gameTime = GetTime() - gameTime;
+        //gameTime = GetTime() - gameTime;
     }
 
     void DrawCar()
@@ -61,6 +69,8 @@ public:
 
         //DrawText();
     }
+
+
 };
 
 

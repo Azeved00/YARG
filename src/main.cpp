@@ -13,11 +13,7 @@ void StartGame()
 {
     ResetEnemies();
     state = GamePlay;
-    if(player != NULL){
-        delete player;
-    }
-
-    player = new Player();
+    player->Reset();
 }
 
 void Update()
@@ -38,7 +34,7 @@ void Update()
             player->Update();
             UpdateEnemies();
             GenerateEnemy();
-            if(CheckForCollision(player->car))
+            if(CheckForCollision(player))
             {
                 state = Lost;
             }
@@ -64,9 +60,6 @@ void Update()
         default: 
             break;
     }
-}
-
-void DrawHud(){
 }
 
 void Draw()
@@ -137,9 +130,7 @@ int main(void)
     while (!WindowShouldClose())
     {
         Update();
-        
         Draw();            
-        EndDrawing();
     }
 
     CloseWindow();
