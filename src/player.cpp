@@ -11,7 +11,7 @@ public:
     Camera2D camera;
     double gameTime;
 
-    Player() : Car( screenWidth*0.5, screenHeight*0.8, YELLOW)
+    Player() : Car( screenWidth*0.5, screenHeight*0.8, YELLOW, 8)
     {
         this->camera = { 0 };
         camera.target = (Vector2){ (float) posX, (float) posY};
@@ -38,16 +38,16 @@ public:
     void Update()
     {
         if (IsKeyDown(KEY_W))
-            this->posY -= screenHeight*0.01;
+            this->posY -= speed;
         
         if (IsKeyDown(KEY_S))
-            this->posY += screenHeight*0.01;
+            this->posY += speed;
 
         if (IsKeyDown(KEY_A))
-            this->posX -= screenWidth*0.01;
+            this->posX -= speed;
 
         if (IsKeyDown(KEY_D))
-            this->posX += screenWidth*0.01;
+            this->posX += speed;
     
         camera.target = (Vector2){ (float) this->posX, (float) this->posY };
 
@@ -61,16 +61,20 @@ public:
 
     void DrawHud()
     {
-        DrawRectangle(0, 0, screenWidth*0.15, screenHeight*0.2, DARKGRAY);
+        DrawRectangle(0, 0, screenWidth*0.15, 120, DARKGRAY);
+        std::string s;
 
         double time = GetTime() - gameTime;
         int seconds = (int) time;
         int micro = -(int) round((seconds - time)*100);
-        std::string s = std::to_string(seconds) + ":" + std::to_string(micro);
+        s = std::to_string(seconds) + ":" + std::to_string(micro);
         DrawText(s.c_str(), 10,50,20,BLACK);
 
         s = std::to_string(posX) + ", " + std::to_string(posY);
         DrawText(s.c_str(),10,70,20,BLACK);
+
+        s = std::to_string(speed) ;
+        DrawText(s.c_str(),10,90,20,BLACK);
     }
 
 

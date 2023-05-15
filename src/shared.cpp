@@ -3,6 +3,7 @@
 
 #include "raylib.h"
 #include "math.h"
+#include <string>
 
 static const int screenHeight = 450;
 static const int screenWidth = 800;
@@ -13,6 +14,7 @@ static const int targetFPS = 60;
 typedef enum State {
     GamePlay,
     Lost,
+    Won,
     Pause,
     MainMenu,
     Settings,
@@ -20,7 +22,6 @@ typedef enum State {
 } State;
 
 class Car{
-    static const int baseSpeed = 4;
     static const double sizeX;
     static const double sizeY;
     
@@ -31,11 +32,11 @@ class Car{
         unsigned int speed;
         int direction;
 
-        Car(int posX, int posY, Color color){
+        Car(int posX, int posY, Color color, unsigned int speed = 4){
             this->posX = posX;
             this->posY = posY;
             this->color = color;
-            this->speed = baseSpeed;
+            this->speed = speed;
         }
 
         void Draw(){
@@ -45,6 +46,7 @@ class Car{
                 screenWidth*sizeX,
                 screenHeight*sizeY,
                 this->color);
+            //DrawText(std::to_string(speed).c_str(),this->posX,this->posY,10,BLACK);
         }
 
         bool IsColliding(Car* c){
@@ -70,6 +72,7 @@ class Car{
             return res; 
         }
 };
+
 const double Car::sizeX = 0.12;
 const double Car::sizeY = 0.20;
 
