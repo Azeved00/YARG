@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> {  } }:
+{ pkgs ? import <nixpkgs> { overlays = [ ( import ./raylib-overlay.nix)]; }}:
 let
     root = builtins.getEnv "PWD";
 in pkgs.mkShell{
@@ -28,5 +28,7 @@ in pkgs.mkShell{
         alias run='$ROOT/game.bin'
 
         alias exec='build && run'
+
+        echo raylib is @ version ${pkgs.raylib}
     '';
 }
