@@ -1,16 +1,17 @@
 #ifndef GRAPHICS_CPP
 #define GRAPHICS_CPP
-#include "./shared.cpp"
+
+#include "shared.cpp"
+#include "raylib.h"
 #include <string>
 
-Image roadImage;
 Texture roadTexture;
 
 void InitiateGraphics()
 {
     InitWindow( screenWidth, screenHeight, "Some Racing Game");
     
-    roadImage = LoadImage("./assets/road.png");
+    Image roadImage = LoadImage("./assets/road.png");
     if(!IsImageReady(roadImage)){
         printf("Image ../assets/road.png is not ready\n");
         return;
